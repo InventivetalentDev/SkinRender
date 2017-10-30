@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SkinRender - quick, easy, interactable 3D Minecraft Skins</title>
+        <link id="favicon" rel="icon" type="image/png" href="https://skinrender.ga/favicon.png"/>
+
+
+        <!-- SEO -->
+        <meta name="keywords" content="skinrender,skin,3d,minecraft">
+        <meta name="description" content="SkinRender provides really easy ways to add interactable 3D Minecraft skins to your website.">
+        <meta name="author" content="inventivetalent">
+
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="SkinRender">
+        <meta property="og:image" content="https://skinrender.ga/img/skinrender2-512.png">
+        <meta property="og:description" content="SkinRender provides really easy ways to add interactable 3D Minecraft skins to your website.">
+        <!--<update-meta property="og:description" content="{{head.pageDescription}}"></update-meta>-->
+
+        <meta property="twitter:title" content="SkinRender">
+        <meta property="twitter:image" content="https://skinrender.ga/img/skinrender2-512.png">
+        <meta property="twitter:description" content="SkinRender provides really easy ways to add interactable 3D Minecraft skins to your website.">
+        <meta property="twitter:creator" content="@Inventivtalent">
+        <meta property="twitter:card" content="summary">
+
+
+        <!-- Style -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" integrity="sha256-x8PYmLKD83R9T/sYmJn1j3is/chhJdySyhet/JuHnfY=" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css" integrity="sha256-mkKV3FUh67dtli09bVbaYyM1526XgR92cz1uKarE1jo=" crossorigin="anonymous"/>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.8.3/themes/prism.min.css" integrity="sha256-DJJDQyzflMYiUb2jX3gilm9m3gAkHPC4WLv9BAk4rTE=" crossorigin="anonymous"/>
+
+        <meta name=viewport content="width=device-width, initial-scale=1">
+
+        <meta name="fragment" content="!">
+        <base href="/">
+
+        <style>
+            .skinContainer {
+                height: 60vh;
+                display: block;
+                margin: 0 auto;
+            }
+
+            .skinContainer > canvas {
+                -webkit-filter: drop-shadow(5px 5px 5px #222);
+                filter: drop-shadow(5px 5px 5px #222);
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <br/>
+            <div class="section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s12 m4">
+                            <div class="card-panel">
+                                <div class="center">
+                                    <div class="skinContainer" id="skinExample1"></div>
+                                    <pre id="skinName1"></pre>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 m4">
+                            <div class="card-panel">
+                                <div class="center">
+                                    <div class="skinContainer" id="skinExample2"></div>
+                                    <pre id="skinName2"></pre>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s12 m4">
+                            <div class="card-panel">
+                                <div class="center">
+                                    <div class="skinContainer" id="skinExample3"></div>
+                                    <pre id="skinName3"></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <h1 class="header center blue-text">Skin Render</h1>
+                    <div class="row center">
+                        <h5 class="header col s12 light">Quick, Easy, Interactable 3D Skin Renders for Minecraft</h5>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+            <br/>
+            <div class="section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="card-panel z-depth-2">
+                                <h2>Features</h2>
+
+                                <div class="row">
+                                    <div class="col s12 m6">
+                                        <ul>
+                                            <li>Skins from PNG images (URLs or Base64 data)</li>
+                                            <li>Skins from usernames (via <a href="https://crafatar.com/" target="_blank">Crafatar</a>)</li>
+                                            <li>Inner & Outer Skin Layers</li>
+                                            <li>Capes (can be any texture, user doesn't need to own the cape)</li>
+                                            <li>Skin & Cape data from <a href="https://mineskin.org" target="_blank">MineSkin.org</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col s12 m6">
+                                        <ul>
+                                            <li>All body parts's visibility can be toggled</li>
+                                            <li>All parts can be rotated/animated</li>
+                                            <li>Everything is rendered client-side (using <a href="https://threejs.org/" target="_blank">THREE.js</a>)</li>
+                                            <li>Pan, Zoom & Rotate controls, which can all be toggled individually</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="section">
+                <div class="row">
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="col s12 m6">
+                                <div class="card-panel z-depth-2">
+                                    <div class="row">
+                                        <div class="col s12">
+                                            <h4 class="center-align">JavaScript</h4>
+
+                                            <br/>
+                                            <div class="row">
+                                                <pre><code class="language-markup">&lt;script src="https://skinrender.ga/js/lib/OrbitControls.min.js"&gt;&lt;/script&gt;&lt;!-- Required for interactive controls --&gt;
+&lt;script src="https://skinrender.ga/js/render/skin.min.js"&gt;&lt;/script&gt;</code></pre>
+                                                <pre><code class="language-javascript">var skinRender = new SkinRender({/* options */}, document.getElementById("mySkinContainer"));
+skinRender.render("</code><span id="js-example-skin"><code>inventivetalent</code></span><code class="language-javascript">");</code></pre>
+                                            </div>
+                                            <div class="row">
+                                                <div class="skinContainer center" id="javascriptExample">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s12 m6">
+                                <div class="card-panel z-depth-2">
+                                    <div class="row">
+                                        <div class="col s12">
+                                            <h4 class="center-align">IFrame</h4>
+
+                                            <br/>
+                                            <div>
+                                                <pre><code class="language-markup">&lt;iframe src="https://skinrender.ga/embed/?skin=</code><span id="iframe-example-skin"><code>inventivetalent</code></span><code class="language-markup">&shadow=true" frameborder="0"&gt;&lt;/iframe&gt;</code></pre>
+                                            </div>
+                                            <div>
+                                                <iframe id="iframeExample" class="skinContainer center" src="https://skinrender.ga/embed/?skin=inventivetalent" frameborder="0"></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="card-panel center">
+                                <h2>Examples</h2>
+
+                                <a href="https://codepen.io/inventivetalent/full/oogMGG/" target="_blank" class="waves-effect waves-teal btn-flat blue-text">Basic Demo</a><br/>
+                                <a href="https://codepen.io/inventivetalent/full/POwBaX/" target="_blank" class="waves-effect waves-teal btn-flat blue-text">MineSkin Example</a><br/>
+
+                                <!--<a href="https://skinrender.ga/demo" target="_blank" class="waves-effect waves-teal btn-flat blue-text">Try the Fullscreen Demo!</a>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="teal page-footer darken-1" style="margin-top:100px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col s12 m8">
+                        <h5 class="white-text">About</h5>
+                        <p class="grey-text text-lighten-4">
+                            <strong>SkinRender</strong> provides really easy ways to add 3D Minecraft Skin Renders to your website.<br/>
+                            <br/>
+                            Either by directly adding the SkinRender script, which also provides customization options,<br/>
+                            or by just inserting an IFrame embed, if you want a quick and uncomplicated solution with fewer customization options.<br/>
+                        </p>
+                    </div>
+                    <div class="col s12 m4">
+                        <p class="grey-text text-lighten-4">
+                            <br/>
+                            <br/>
+                            <strong>Please Note: </strong> This is currently still in development, and might be subject to some changes.<br/>
+                            Also, the documentation isn't finished at this point, but will be updated later on.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    Made by <a class="blue-text" href="https://inventivetalent.org" target="_blank">inventivetalent</a>
+                    <span class="pull-right">
+                        This website is not affiliated with Minecraft / Mojang AB.
+                    </span>
+                </div>
+            </div>
+        </footer>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.min.js" integrity="sha256-jFCqhWdzGFjoG8/SAncY2afI/Xv1TPSWSZrb9dpXQbk=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js" integrity="sha256-0YzDSJS0qH+wpvug+Im1cMB9CX919NMtHj0d2VVHPp4=" crossorigin="anonymous"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js" integrity="sha256-FMocp8pp1WruAK6GtjNDtuGAALCt/dCsVtw7oSjvPX0=" crossorigin="anonymous"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js" integrity="sha256-3mqgTUhHNgfXgjrzjPOaW03DdQ9hgW92BApzLREoRoA=" crossorigin="anonymous"></script>
+
+        <!--<script src="https://cdn.rawgit.com/dwmkerr/angular-modal-service/126c6ecf/dst/angular-modal-service.min.js"></script>-->
+        <!-- Modified script which fixes issues with using the service in the onEnter function -->
+        <script src="https://cdn.rawgit.com/pdgendt/c351649feb30860182c2/raw/2ca26cbdc7d5913e567b2a52087ee109b362cb8a/angular-modal-service.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.8.3/prism.min.js" integrity="sha256-haEv2ilTk2sXcJaGbkTtErRCHy/qGt3g+bGbgPf5OTY=" crossorigin="anonymous"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/87/three.min.js" integrity="sha256-ZJ8+dqHwDpFyWtPH4vQ3/FRCPJiVTwpsMQxDIDLtsHY=" crossorigin="anonymous"></script>
+        <script src="/js/lib/OrbitControls.min.js"></script>
+        <script src="/js/render/skin.js"></script>
+        <script>
+            $(document).ready(function () {
+                var skins = [
+                    "inventivetalent",
+                    "xFaiiLeR",
+                    "KleinMuffin",
+                    "md_5",
+                    "jeb_",
+                    "Notch",
+                    "Etho",
+
+                    "minecoder|data:image/png;base64,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",//minecoder
+                    "ModdyLP",
+                    "RealNuclearCat",
+                    "ItzJakey",
+                    "Zeryther",
+                    "DimitriTheFox",
+                    "hoi66",
+                    "Cyclom",
+                    "cadox8",
+                    "FabeGabe",
+                    "Technerder",
+                    "RoiEX",
+                    "Wende2k",
+                    "JustBru00",
+                    "MiniDigger",
+                    "Phineas",
+                    "TheIndra",
+                    "BaeFell",
+                    "nfell2009",
+                    "Consuela",
+                    "Danielh90",
+                    "MrSweeter",
+                    "redraskal",
+                    "tr7zw",
+                    "Hyriell",
+                    "Aderm",
+                    "StudMuffinIsHere",
+                    "ystrike099",
+                    "Siri",
+                    "SpiderRobotMan",
+                    "MrWouter",
+                    "rickmartensnl",
+                    "DusDavid",
+                    "GravelCZLP"
+                ];
+                var randomSkins = skins.splice(0);
+
+                function getRandomSkin() {
+                    var skin = randomSkins.splice(Math.floor(Math.random() * randomSkins.length), 1)[0];
+                    if (skin.indexOf("|") !== -1) {
+                        var split = skin.split("|");
+                        return {
+                            name: split[0],
+                            skin: split[1]
+                        }
+                    }
+                    return {
+                        name: skin,
+                        skin: skin
+                    }
+                }
+
+                function renderShowcases() {
+                    var renders = [];
+                    for (var i = 0; i < 3; i++) {
+                        var skin = getRandomSkin();
+                        var element = $("#skinExample" + (i + 1));
+                        $("#skinName" + (i + 1)).text(skin.name)
+                        var skinRender = new SkinRender({
+                            autoResize: true,
+                            canvas: {
+                                width: element[0].offsetWidth,
+                                height: element[0].offsetHeight
+                            }
+                        }, element[0]);
+                        element.on("skinRender", function (e) {
+                            e.detail.playerModel.rotation.y += 0.01;
+//                            e.detail.playerModel.children[2].rotation.y += 0.01;
+//                            e.detail.playerModel.children[3].rotation.y += 0.01;
+                        })
+                        renders[i] = skinRender;
+                        skinRender.render(skin.skin);
+                    }
+                }
+
+                function renderJavascriptExample() {
+                    var element = $("#javascriptExample")
+                    var skinRender = new SkinRender({
+                        autoResize: true,
+                        canvas: {
+                            width: element[0].offsetWidth,
+                            height: element[0].offsetHeight
+                        }
+                    }, element[0]);
+
+                    var skin = getRandomSkin();
+                    $("#js-example-skin").text(skin.name);
+                    skinRender.render(skin.skin);
+                }
+
+                function renderIframeExample() {
+                    var element = $("#iframeExample");
+
+                    var skin = getRandomSkin();
+                    $("#iframe-example-skin").text(skin.name);
+                    element.attr("src", "https://skinrender.ga/embed/?skin=" + skin.skin + "&shadow=true")
+                }
+
+
+                renderShowcases();
+                renderJavascriptExample();
+                renderIframeExample();
+            })
+        </script>
+    </body>
+</html>
