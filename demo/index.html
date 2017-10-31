@@ -62,9 +62,10 @@
                 autoResize: true
             }, document.body);
             skinRender.render({
-                username:"inventivetalent",
+                username:location.hash?location.hash.substring(1):"inventivetalent",
                 capeUrl:"https://crafatar.com/capes/md_5"
             });
+            if(location.hash) $("#nameInput").val(location.hash.substring(1));
             $("#nameInput,#capeInput").on("change", function () {
                 skinRender.reset();
                 var skin = $("#nameInput").val();
@@ -74,6 +75,7 @@
                     options.url = skin;
                 } else {
                     options.username = skin;
+                    location.hash = skin;
                 }
                 if (cape&&cape.length > 0) {
                     options.capeUrl = cape;
