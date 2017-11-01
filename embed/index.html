@@ -30,6 +30,9 @@
         <script src="/js/lib/OrbitControls.js"></script>
     </head>
     <body>
+        <a style="position: absolute; left: 2px; bottom: 2px; opacity: 0.5; font-size: 10px; text-decoration: none;" href="https://skinrender.ga/" target="_blank">
+            <pre>SkinRender.ga</pre>
+        </a>
         <script src="/js/render/skin.js"></script>
         <script>
             /*
@@ -107,7 +110,7 @@
                 skinRender.render(renderParams, function () {
                     // Apply shadow after the element is added
                     if (params.get("shadow") && params.get("shadow") === "true") {
-                        skinRender.getElement().classList.add("shadow");
+                        document.getElementsByTagName("canvas").classList.add("shadow");
                     }
                 });
 
