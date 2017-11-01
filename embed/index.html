@@ -63,12 +63,12 @@
                 var renderParams = {};
 
                 if (params.get("skin.url")) {
-                    renderParams.url = params.get("skin.url");
+                    renderParams.url = "https://skinrender.ga/CORSpipe.php?url=" + encodeURIComponent(params.get("skin.url"));
                 } else if (params.get("skin.data")) {
                     renderParams.data = params.get("skin.data");
                 } else if (params.get("skin.name")) {
                     renderParams.username = params.get("skin.name");
-                }else if(params.get("skin")){
+                } else if (params.get("skin")) {
                     renderParams = params.get("skin");// any type
                 } else {
                     console.error("Missing Skin param in url");
