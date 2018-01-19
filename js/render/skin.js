@@ -134,10 +134,10 @@
             if (typeof cb === "function") cb();
         }
 
-        var skinImage = new Image();
-        skinImage.crossOrigin = "anonymous";
-        var capeImage = new Image();
-        capeImage.crossOrigin = "anonymous";
+        skinRender._skinImage = new Image();
+        skinRender._skinImage.crossOrigin = "anonymous";
+        skinRender._capeImage = new Image();
+        skinRender._capeImage.crossOrigin = "anonymous";
         var hasCape = texture.capeUrl !== undefined || texture.capeData !== undefined || texture.mineskin !== undefined;
         var slim = false;
         var skinLoaded = false;
@@ -145,8 +145,10 @@
 
         var skinTexture = new THREE.Texture();
         var capeTexture = new THREE.Texture();
-        skinTexture.image = skinImage;
-        skinImage.onload = function () {
+        skinTexture.image = skinRender._skinImage;
+        skinRender._skinImage.onload = function () {
+            if (!skinRender._skinImage) return;
+
             skinLoaded = true;
             console.log("Skin Image Loaded");
 
@@ -154,9 +156,9 @@
                 var detectCanvas = document.createElement("canvas");
                 var detectCtx = detectCanvas.getContext("2d");
                 // detectCanvas.style.display = "none";
-                detectCanvas.width = skinImage.width;
-                detectCanvas.height = skinImage.height;
-                detectCtx.drawImage(skinImage, 0, 0);
+                detectCanvas.width = skinRender._skinImage.width;
+                detectCanvas.height = skinRender._skinImage.height;
+                detectCtx.drawImage(skinRender._skinImage, 0, 0);
 
                 console.log("Slim Detection:")
 
@@ -183,14 +185,16 @@
                 if (!renderStarted) imagesLoaded(skinTexture, capeTexture);
             }
         };
-        skinImage.onerror = function (e) {
+        skinRender._skinImage.onerror = function (e) {
             console.warn("Skin Image Error")
             console.warn(e)
         }
         console.log("Has Cape: " + hasCape)
         if (hasCape) {
-            capeTexture.image = capeImage;
-            capeImage.onload = function () {
+            capeTexture.image = skinRender._capeImage;
+            skinRender._capeImage.onload = function () {
+                if (!skinRender._capeImage) return;
+
                 capeLoaded = true;
                 console.log("Cape Image Loaded");
 
@@ -198,7 +202,7 @@
                     if (!renderStarted) imagesLoaded(skinTexture, capeTexture);
                 }
             }
-            capeImage.onerror = function (e) {
+            skinRender._capeImage.onerror = function (e) {
                 console.warn("Cape Image Error")
                 console.warn(e);
 
@@ -209,33 +213,33 @@
             }
         } else {
             capeTexture = null;
-            capeImage = null;
+            skinRender._capeImage = null;
         }
 
         if (typeof texture === "string") {
             if (texture.indexOf("http") === 0) {// URL
-                skinImage.src = texture
+                skinRender._skinImage.src = texture
             } else if (texture.length <= 16) {// Probably a Minecraft username
-                skinImage.src = "https://crafatar.com/skins/" + texture;
+                skinRender._skinImage.src = "https://crafatar.com/skins/" + texture;
             } else {// taking a guess that it's a Base64 image
-                skinImage.src = texture;
+                skinRender._skinImage.src = texture;
             }
         } else if (typeof texture === "object") {
             if (texture.url) {
-                skinImage.src = texture.url;
+                skinRender._skinImage.src = texture.url;
             } else if (texture.data) {
-                skinImage.src = texture.data;
+                skinRender._skinImage.src = texture.data;
             } else if (texture.username) {
-                skinImage.src = "https://crafatar.com/skins/" + texture.username;
+                skinRender._skinImage.src = "https://crafatar.com/skins/" + texture.username;
             } else if (texture.mineskin) {
-                skinImage.src = "https://api.mineskin.org/render/texture/" + texture.mineskin;
+                skinRender._skinImage.src = "https://api.mineskin.org/render/texture/" + texture.mineskin;
             }
             if (texture.capeUrl) {
-                capeImage.src = texture.capeUrl;
+                skinRender._capeImage.src = texture.capeUrl;
             } else if (texture.capeData) {
-                capeImage.src = texture.capeData;
+                skinRender._capeImage.src = texture.capeData;
             } else if (texture.mineskin) {
-                capeImage.src = "https://api.mineskin.org/render/texture/" + texture.mineskin + "/cape";
+                skinRender._capeImage.src = "https://api.mineskin.org/render/texture/" + texture.mineskin + "/cape";
             }
 
             slim = texture.slim;
@@ -249,6 +253,9 @@
     };
 
     SkinRender.prototype.reset = function () {
+        this._skinImage = null;
+        this._capeImage = null;
+
         if (this._animId) {
             cancelAnimationFrame(this._animId);
         }
