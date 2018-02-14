@@ -220,7 +220,12 @@
             if (texture.indexOf("http") === 0) {// URL
                 skinRender._skinImage.src = texture
             } else if (texture.length <= 16) {// Probably a Minecraft username
-                skinRender._skinImage.src = "https://crafatar.com/skins/" + texture;
+                getJSON("https://skinrender.ga/nameToUuid.php?name=" + texture, function (err, data) {
+                    if (err) return console.log(err);
+                    skinRender._skinImage.src = "https://crafatar.com/skins/" + data.id ? data.id : texture;
+                });
+            } else if (texture.length <= 36) {// Probably player UUID
+                image.src = "https://crafatar.com/skins/" + texture;
             } else {// taking a guess that it's a Base64 image
                 skinRender._skinImage.src = texture;
             }
@@ -230,7 +235,12 @@
             } else if (texture.data) {
                 skinRender._skinImage.src = texture.data;
             } else if (texture.username) {
-                skinRender._skinImage.src = "https://crafatar.com/skins/" + texture.username;
+                getJSON("https://skinrender.ga/nameToUuid.php?name=" + texture.username, function (err, data) {
+                    if (err) return console.log(err);
+                    skinRender._skinImage.src = "https://crafatar.com/skins/" + data.id ? data.id : texture.username;
+                });
+            } else if (texture.uuid) {
+                skinRender._skinImage.src = "https://crafatar.com/skins/" + texture.uuid;
             } else if (texture.mineskin) {
                 skinRender._skinImage.src = "https://api.mineskin.org/render/texture/" + texture.mineskin;
             }
@@ -569,6 +579,21 @@
     function toRadians(angle) {
         return angle * (Math.PI / 180);
     }
+
+    function getJSON(url, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+        xhr.responseType = 'json';
+        xhr.onload = function () {
+            var status = xhr.status;
+            if (status === 200) {
+                callback(null, xhr.response);
+            } else {
+                callback(status, xhr.response);
+            }
+        };
+        xhr.send();
+    };
 
 
     var texturePositions = {
