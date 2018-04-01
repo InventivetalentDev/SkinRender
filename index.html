@@ -43,6 +43,11 @@
                 margin: 0 auto;
             }
 
+            .skinContainer > img {
+                height: 50vh;
+                padding: 10vh 5vh 5vh;
+            }
+
             .skinContainer > canvas {
                 -webkit-filter: drop-shadow(5px 5px 5px #222);
                 filter: drop-shadow(5px 5px 5px #222);
@@ -58,7 +63,9 @@
                         <div class="col s12 m4">
                             <div class="card-panel">
                                 <div class="center">
-                                    <div class="skinContainer" id="skinExample1"></div>
+                                    <div class="skinContainer" id="skinExample1">
+                                        <img src="/img/minerender_steve_gray_blur.png" id="placeholder1">
+                                    </div>
                                     <pre id="skinName1"></pre>
                                 </div>
                             </div>
@@ -66,7 +73,9 @@
                         <div class="col s12 m4">
                             <div class="card-panel">
                                 <div class="center">
-                                    <div class="skinContainer" id="skinExample2"></div>
+                                    <div class="skinContainer" id="skinExample2">
+                                        <img src="/img/minerender_steve_gray_blur.png" id="placeholder2">
+                                    </div>
                                     <pre id="skinName2"></pre>
                                 </div>
                             </div>
@@ -74,7 +83,9 @@
                         <div class="col s12 m4">
                             <div class="card-panel">
                                 <div class="center">
-                                    <div class="skinContainer" id="skinExample3"></div>
+                                    <div class="skinContainer" id="skinExample3">
+                                        <img src="/img/minerender_steve_gray_blur.png" id="placeholder3">
+                                    </div>
                                     <pre id="skinName3"></pre>
                                 </div>
                             </div>
@@ -325,7 +336,11 @@ skinRender.render("</code><span id="js-example-skin"><code>inventivetalent</code
 //                            e.detail.playerModel.children[3].rotation.y += 0.01;
                         })
                         renders[i] = skinRender;
-                        skinRender.render(skin.skin);
+                        (function (i) {
+                            skinRender.render(skin.skin, function () {
+                                $("#placeholder" + (i + 1)).remove();
+                            })
+                        })(i);
                     }
                 }
 

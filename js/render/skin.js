@@ -77,6 +77,7 @@
             // scene.background = new THREE.Color( 0xff0000 );
 
             var renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
+            skinRender._renderer = renderer;
             renderer.setSize((skinRender.options.canvas.width || window.innerWidth), (skinRender.options.canvas.height || window.innerHeight));
             renderer.setClearColor(0x000000, 0);
             skinRender._element.appendChild(skinRender._canvas = renderer.domElement);
@@ -113,7 +114,7 @@
             console.log("Slim: " + slim)
             var playerModel = createPlayerModel(skinTexture, capeTexture, textureVersion, slim);
             scene.add(playerModel);
-            console.log(playerModel);
+            // console.log(playerModel);
             skinRender.playerModel = playerModel;
 
             camera.position.x = skinRender.options.camera.x;
@@ -128,6 +129,7 @@
 
                 renderer.render(scene, camera);
             };
+            skinRender._animate = animate;
 
             animate();
 
@@ -207,6 +209,7 @@
                 console.warn(e);
 
                 // Continue anyway, just without the cape
+                capeLoaded = true;
                 if (skinLoaded) {
                     if (!renderStarted) imagesLoaded(skinTexture);
                 }
@@ -217,12 +220,14 @@
         }
 
         if (typeof texture === "string") {
+            // console.log(texture)
             if (texture.indexOf("http") === 0) {// URL
                 skinRender._skinImage.src = texture
             } else if (texture.length <= 16) {// Probably a Minecraft username
                 getJSON("https://skinrender.ga/nameToUuid.php?name=" + texture, function (err, data) {
                     if (err) return console.log(err);
-                    skinRender._skinImage.src = "https://crafatar.com/skins/" + data.id ? data.id : texture;
+                    console.log(data);
+                    skinRender._skinImage.src = "https://crafatar.com/skins/" + (data.id ? data.id : texture);
                 });
             } else if (texture.length <= 36) {// Probably player UUID
                 image.src = "https://crafatar.com/skins/" + texture;
@@ -237,7 +242,7 @@
             } else if (texture.username) {
                 getJSON("https://skinrender.ga/nameToUuid.php?name=" + texture.username, function (err, data) {
                     if (err) return console.log(err);
-                    skinRender._skinImage.src = "https://crafatar.com/skins/" + data.id ? data.id : texture.username;
+                    skinRender._skinImage.src = "https://crafatar.com/skins/" + (data.id ? data.id : texture.username);
                 });
             } else if (texture.uuid) {
                 skinRender._skinImage.src = "https://crafatar.com/skins/" + texture.uuid;
@@ -298,7 +303,7 @@
 
         var geometry = new THREE.BoxGeometry(width, height, depth);
         var material = new THREE.MeshBasicMaterial({
-            /*color: 0x00ff00,*/map: texture, transparent: transparent, side: transparent ? THREE.DoubleSide : THREE.FrontSide//TODO: double sided not working properly
+            /*color: 0x00ff00,*/map: texture, transparent: transparent || false, side: transparent ? THREE.DoubleSide : THREE.FrontSide//TODO: double sided not working properly
         });
 
         geometry.computeBoundingBox();
@@ -311,8 +316,8 @@
             var face = textures[faceNames[i]];
             if (faceNames[i] === "back") {
                 //     console.log(face)
-                console.log("X: " + (slim && face.sx ? face.sx : face.x))
-                console.log("W: " + (slim && face.sw ? face.sw : face.w))
+                // console.log("X: " + (slim && face.sx ? face.sx : face.x))
+                // console.log("W: " + (slim && face.sw ? face.sw : face.w))
             }
             var w = textureWidth;
             var h = textureHeight;
@@ -589,11 +594,11 @@
             if (status === 200) {
                 callback(null, xhr.response);
             } else {
-                callback(status, xhr.response);
+                callback(xhr.statusText, xhr.response);
             }
         };
         xhr.send();
-    };
+    }
 
 
     var texturePositions = {

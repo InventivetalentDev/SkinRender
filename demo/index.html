@@ -24,7 +24,7 @@
         </style>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/87/three.min.js" integrity="sha256-ZJ8+dqHwDpFyWtPH4vQ3/FRCPJiVTwpsMQxDIDLtsHY=" crossorigin="anonymous"></script>browserify ./app/main.js -o ./public/bundle.js
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/87/three.min.js" integrity="sha256-ZJ8+dqHwDpFyWtPH4vQ3/FRCPJiVTwpsMQxDIDLtsHY=" crossorigin="anonymous"></script>
         <script src="https://skinrender.ga/js/lib/OrbitControls.js"></script>
     </head>
     <body>
@@ -63,7 +63,7 @@
             }, document.body);
             skinRender.render({
                 username:location.hash?location.hash.substring(1):"inventivetalent",
-                capeUrl:"https://crafatar.com/capes/md_5"
+                capeUrl:"https://crafatar.com/capes/af74a02d19cb445bb07f6866a861f783"
             });
             if(location.hash) $("#nameInput").val(location.hash.substring(1));
             $("#nameInput,#capeInput").on("change", function () {
