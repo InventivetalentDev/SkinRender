@@ -230,7 +230,7 @@
                     skinRender._skinImage.src = "https://crafatar.com/skins/" + (data.id ? data.id : texture);
                 });
             } else if (texture.length <= 36) {// Probably player UUID
-                image.src = "https://crafatar.com/skins/" + texture;
+                image.src = "https://crafatar.com/skins/" + texture + "?overlay";
             } else {// taking a guess that it's a Base64 image
                 skinRender._skinImage.src = texture;
             }
@@ -242,10 +242,10 @@
             } else if (texture.username) {
                 getJSON("https://skinrender.ga/nameToUuid.php?name=" + texture.username, function (err, data) {
                     if (err) return console.log(err);
-                    skinRender._skinImage.src = "https://crafatar.com/skins/" + (data.id ? data.id : texture.username);
+                    skinRender._skinImage.src = "https://crafatar.com/skins/" + (data.id ? data.id : texture.username) + "?overlay";
                 });
             } else if (texture.uuid) {
-                skinRender._skinImage.src = "https://crafatar.com/skins/" + texture.uuid;
+                skinRender._skinImage.src = "https://crafatar.com/skins/" + texture.uuid + "?overlay";
             } else if (texture.mineskin) {
                 skinRender._skinImage.src = "https://api.mineskin.org/render/texture/" + texture.mineskin;
             }
