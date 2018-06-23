@@ -19,6 +19,9 @@
         canvas: {
             width: undefined,
             height: undefined
+        },
+        render: {
+            taa: false
         }
     };
 
@@ -82,6 +85,47 @@
             renderer.setClearColor(0x000000, 0);
             skinRender._element.appendChild(skinRender._canvas = renderer.domElement);
 
+            var composer;
+            if (skinRender.options.render.taa) {
+                if (!THREE.EffectComposer) {
+                    console.error("Missing EffectComposer! Please include https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/EffectComposer.js")
+                    return;
+                }
+                if (!THREE.RenderPass) {
+                    console.error("Missing RenderPass! Please include https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/RenderPass.js");
+                    return;
+                }
+                if (!THREE.TAARenderPass) {
+                    console.error("Missing TAARenderPass! Please include https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/TAARenderPass.js");
+                    return;
+                }
+                if (!THREE.SSAARenderPass) {
+                    console.error("Missing SSAARenderPass! Please include https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/SSAARenderPass.js");
+                }
+                if (!THREE.ShaderPass) {
+                    console.error("Missing ShaderPass! Please include https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/ShaderPass.js");
+                }
+                if (!THREE.CopyShader) {
+                    console.error("Missing CopyShader! Please include https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/shaders/CopyShader.js");
+                    return;
+                }
+
+                composer = new THREE.EffectComposer(renderer);
+                skinRender._composer = composer;
+
+                var taaRenderPass = new THREE.TAARenderPass(scene, camera);
+                taaRenderPass.unbiased = false;
+                composer.addPass(taaRenderPass);
+
+                var renderPass = new THREE.RenderPass(scene, camera);
+                renderPass.enabled = false;
+                composer.addPass(renderPass);
+
+                var copyPass = new THREE.ShaderPass(THREE.CopyShader);
+                copyPass.renderToScreen = true;
+                composer.addPass(copyPass);
+            }
+
             if (skinRender.options.controls.enabled) {
                 var controls = new THREE.OrbitControls(camera, renderer.domElement);
                 controls.enableZoom = skinRender.options.controls.zoom;
@@ -102,6 +146,11 @@
                 camera.updateProjectionMatrix();
 
                 renderer.setSize(width, height);
+
+                var pixelRatio = renderer.getPixelRatio();
+                var newWidth = Math.floor(width / pixelRatio) || 1;
+                var newHeight = Math.floor(height / pixelRatio) || 1;
+                composer.setSize(newWidth, newHeight);
             };
 
             if (skinRender.options.showAxes) {
@@ -127,7 +176,11 @@
 
                 skinRender.getElement().dispatchEvent(new CustomEvent("skinRender", {detail: {playerModel: playerModel}}));
 
-                renderer.render(scene, camera);
+                if (skinRender.options.render.taa) {
+                    composer.render();
+                } else {
+                    renderer.render(scene, camera);
+                }
             };
             skinRender._animate = animate;
 

@@ -26,6 +26,12 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/87/three.min.js" integrity="sha256-ZJ8+dqHwDpFyWtPH4vQ3/FRCPJiVTwpsMQxDIDLtsHY=" crossorigin="anonymous"></script>
         <script src="https://skinrender.ga/js/lib/OrbitControls.js"></script>
+        <script src="https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/shaders/CopyShader.js"></script>
+        <script src="https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/EffectComposer.js"></script>
+        <script src="https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/RenderPass.js"></script>
+        <script src="https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/SSAARenderPass.js"></script>
+        <script src="https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/TAARenderPass.js"></script>
+        <script src="https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/ShaderPass.js"></script>
     </head>
     <body>
         <div style="position: fixed; right:10px; top:10px; background-color:lightgray; opacity: 50;z-index:10">
@@ -59,13 +65,16 @@
         <script src="/js/render/skin.js"></script>
         <script>
             var skinRender = new SkinRender({
-                autoResize: true
+                autoResize: true,
+                render: {
+                    taa: true
+                }
             }, document.body);
             skinRender.render({
-                username:location.hash?location.hash.substring(1):"inventivetalent",
-                capeUrl:"https://crafatar.com/capes/af74a02d19cb445bb07f6866a861f783"
+                username: location.hash ? location.hash.substring(1) : "inventivetalent",
+                capeUrl: "https://crafatar.com/capes/af74a02d19cb445bb07f6866a861f783"
             });
-            if(location.hash) $("#nameInput").val(location.hash.substring(1));
+            if (location.hash) $("#nameInput").val(location.hash.substring(1));
             $("#nameInput,#capeInput").on("change", function () {
                 skinRender.reset();
                 var skin = $("#nameInput").val();
@@ -77,7 +86,7 @@
                     options.username = skin;
                     location.hash = skin;
                 }
-                if (cape&&cape.length > 0) {
+                if (cape && cape.length > 0) {
                     options.capeUrl = cape;
                 }
                 skinRender.render(options);
@@ -87,14 +96,14 @@
                 skinRender.getModelByName($(this).attr("id")).visible = $(this).is(":checked");
             });
 
-            var animate =true;
-            $("#animate").on("change",function () {
+            var animate = true;
+            $("#animate").on("change", function () {
                 animate = $(this).is(":checked");
             });
 
             var startTime = Date.now();
             document.body.addEventListener("skinRender", function (e) {
-                if(animate) {
+                if (animate) {
                     var t = (Date.now() - startTime) / 1000;
                     e.detail.playerModel.children[2].rotation.x = Math.sin(t * 5) / 2;
                     e.detail.playerModel.children[3].rotation.x = -Math.sin(t * 5) / 2;
