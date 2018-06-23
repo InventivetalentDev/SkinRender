@@ -25,14 +25,20 @@
                 filter: drop-shadow(5px 5px 5px #222);
             }
 
-            #placeholderImage{
-                height:80vh;
-                padding:5vh;
+            #placeholderImage {
+                height: 80vh;
+                padding: 5vh;
             }
         </style>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/87/three.min.js" integrity="sha256-ZJ8+dqHwDpFyWtPH4vQ3/FRCPJiVTwpsMQxDIDLtsHY=" crossorigin="anonymous"></script>
         <script src="/js/lib/OrbitControls.js"></script>
+        <script src="https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/shaders/CopyShader.js"></script>
+        <script src="https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/EffectComposer.js"></script>
+        <script src="https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/RenderPass.js"></script>
+        <script src="https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/SSAARenderPass.js"></script>
+        <script src="https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/TAARenderPass.js"></script>
+        <script src="https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/ShaderPass.js"></script>
     </head>
     <body>
         <img src="/img/minerender_steve_gray_blur.png" id="placeholderImage">
@@ -95,6 +101,9 @@
                         x: 20,
                         y: 35,
                         z: 20
+                    },
+                    render: {
+                        taa: true
                     }
                 };
                 options.showAxes = params.get("showAxes") ? params.get("showAxes") === "true" : options.showAxes;
@@ -119,6 +128,12 @@
                     $("#placeholderImage").remove();
                     if (params.get("shadow") && params.get("shadow") === "true") {
                         document.getElementsByTagName("canvas")[0].classList.add("shadow");
+                    }
+                    if (params.get("hideOuterLayers") && params.get("hideOuterLayers") === "true") {
+                        var outerLayerNames = ["hat", "jacket", "leftSleeve", "rightSleeve", "leftTrousers", "rightTrousers"];
+                        outerLayerNames.forEach(function (n) {
+                            skinRender.getModelByName(n).visible = false;
+                        })
                     }
                 });
 
