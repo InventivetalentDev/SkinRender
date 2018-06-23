@@ -216,7 +216,7 @@ skinRender.render("</code><span id="js-example-skin"><code>inventivetalent</code
 
                                 <p>
                                     Then you can simply enable taa in the render options:
-                                    <pre>new SkinRender({render: {taa: true}})</pre>
+                                <pre>new SkinRender({render: {taa: true}})</pre>
                                 </p>
                             </div>
                         </div>
@@ -281,6 +281,12 @@ skinRender.render("</code><span id="js-example-skin"><code>inventivetalent</code
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/87/three.min.js" integrity="sha256-ZJ8+dqHwDpFyWtPH4vQ3/FRCPJiVTwpsMQxDIDLtsHY=" crossorigin="anonymous"></script>
         <script src="/js/lib/OrbitControls.min.js"></script>
+        <script src="https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/shaders/CopyShader.js"></script>
+        <script src="https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/EffectComposer.js"></script>
+        <script src="https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/RenderPass.js"></script>
+        <script src="https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/SSAARenderPass.js"></script>
+        <script src="https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/TAARenderPass.js"></script>
+        <script src="https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/ShaderPass.js"></script>
         <script src="/js/render/skin.js"></script>
         <script>
             $(document).ready(function () {
@@ -357,6 +363,9 @@ skinRender.render("</code><span id="js-example-skin"><code>inventivetalent</code
                             canvas: {
                                 width: element[0].offsetWidth,
                                 height: element[0].offsetHeight
+                            },
+                            render: {
+                                taa: true
                             }
                         }, element[0]);
                         element.on("skinRender", function (e) {
@@ -380,6 +389,9 @@ skinRender.render("</code><span id="js-example-skin"><code>inventivetalent</code
                         canvas: {
                             width: element[0].offsetWidth,
                             height: element[0].offsetHeight
+                        },
+                        render: {
+                            taa: true
                         }
                     }, element[0]);
 
