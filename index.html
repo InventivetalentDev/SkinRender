@@ -184,11 +184,40 @@ skinRender.render("</code><span id="js-example-skin"><code>inventivetalent</code
                     <div class="row">
                         <div class="col s12">
                             <div class="card-panel center">
-                                <h2>Examples</h2>
+                                <h2 id="examples">Examples</h2>
 
                                 <!--<a href="https://codepen.io/inventivetalent/full/oogMGG/" target="_blank" class="waves-effect waves-teal btn-flat blue-text">Basic Demo</a><br/>-->
                                 <a href="https://skinrender.ga/demo" target="_blank" class="waves-effect waves-teal btn-flat blue-text">Basic Demo!</a>
                                 <a href="https://codepen.io/inventivetalent/full/POwBaX/" target="_blank" class="waves-effect waves-teal btn-flat blue-text">MineSkin Example</a><br/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="card-panel">
+                                <h2 id="postprocessing">Postprocessing</h2>
+
+                                <p>
+                                    In order to enable postprocessing (specifically TAA) for the rendered skins to make the edges look a bit cleaner, <br/>
+                                    you'll first have to include a few additional scripts for THREE.js (you can copy them below)<br/>
+                                </p>
+                                <textarea readonly class="materialize-textarea">
+&lt;script src=&quot;https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/shaders/CopyShader.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/EffectComposer.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/RenderPass.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/SSAARenderPass.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/TAARenderPass.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/ShaderPass.js&quot;&gt;&lt;/script&gt;
+                                </textarea>
+
+                                <p>
+                                    Then you can simply enable taa in the render options:
+                                    <pre>new SkinRender({render: {taa: true}})</pre>
+                                </p>
                             </div>
                         </div>
                     </div>
