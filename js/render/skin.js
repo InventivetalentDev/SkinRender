@@ -147,10 +147,12 @@
 
                 renderer.setSize(width, height);
 
-                var pixelRatio = renderer.getPixelRatio();
-                var newWidth = Math.floor(width / pixelRatio) || 1;
-                var newHeight = Math.floor(height / pixelRatio) || 1;
-                composer.setSize(newWidth, newHeight);
+                if (skinRender.options.render.taa) {
+                    var pixelRatio = renderer.getPixelRatio();
+                    var newWidth = Math.floor(width / pixelRatio) || 1;
+                    var newHeight = Math.floor(height / pixelRatio) || 1;
+                    composer.setSize(newWidth, newHeight);
+                }
             };
 
             if (skinRender.options.showAxes) {
