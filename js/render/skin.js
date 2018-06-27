@@ -95,10 +95,6 @@
                     console.error("Missing RenderPass! Please include https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/RenderPass.js");
                     return;
                 }
-                if (!THREE.TAARenderPass) {
-                    console.error("Missing TAARenderPass! Please include https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/TAARenderPass.js");
-                    return;
-                }
                 if (!THREE.SSAARenderPass) {
                     console.error("Missing SSAARenderPass! Please include https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/SSAARenderPass.js");
                 }
@@ -113,9 +109,9 @@
                 composer = new THREE.EffectComposer(renderer);
                 skinRender._composer = composer;
 
-                var taaRenderPass = new THREE.TAARenderPass(scene, camera);
-                taaRenderPass.unbiased = false;
-                composer.addPass(taaRenderPass);
+                var ssaaRenderPass = new THREE.SSAARenderPass(scene, camera);
+                ssaaRenderPass.unbiased = true;
+                composer.addPass(ssaaRenderPass);
 
                 var renderPass = new THREE.RenderPass(scene, camera);
                 renderPass.enabled = false;
