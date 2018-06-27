@@ -21,7 +21,7 @@
             height: undefined
         },
         render: {
-            taa: false
+            postprocessing: false
         }
     };
 
@@ -38,6 +38,8 @@
             console.warn("OrbitControls not found. Disabling skin controls.");
             this.options.controls.enabled = false;
         }
+
+        if (options.render.taa) options.render.postprocessing = options.render.taa;
 
         // bind this renderer to the element
         this._element.skinRender = this;
@@ -86,7 +88,7 @@
             skinRender._element.appendChild(skinRender._canvas = renderer.domElement);
 
             var composer;
-            if (skinRender.options.render.taa) {
+            if (skinRender.options.render.postprocessing) {
                 if (!THREE.EffectComposer) {
                     console.error("Missing EffectComposer! Please include https://cdn.rawgit.com/mrdoob/three.js/dev/examples/js/postprocessing/EffectComposer.js")
                     return;
@@ -143,7 +145,7 @@
 
                 renderer.setSize(width, height);
 
-                if (skinRender.options.render.taa) {
+                if (skinRender.options.render.postprocessing) {
                     var pixelRatio = renderer.getPixelRatio();
                     var newWidth = Math.floor(width / pixelRatio) || 1;
                     var newHeight = Math.floor(height / pixelRatio) || 1;
@@ -174,7 +176,7 @@
 
                 skinRender.getElement().dispatchEvent(new CustomEvent("skinRender", {detail: {playerModel: playerModel}}));
 
-                if (skinRender.options.render.taa) {
+                if (skinRender.options.render.postprocessing) {
                     composer.render();
                 } else {
                     renderer.render(scene, camera);
